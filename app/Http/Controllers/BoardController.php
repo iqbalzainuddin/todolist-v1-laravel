@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Board;
 use App\Traits\ApiResponses;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BoardController extends Controller
 {
@@ -24,7 +25,7 @@ class BoardController extends Controller
     public function findBoard(Request $request, Board $board)
     {
         if ($board->owner_id !== $request->user()->id) {
-            return $this->error("NOT FOUND", 404);
+            throw new NotFoundHttpException();
         }
 
         $responseData = [
@@ -65,7 +66,7 @@ class BoardController extends Controller
         ]);
 
         if ($board->owner_id !== $request->user()->id) {
-            return $this->error("NOT FOUND", 404);
+            throw new NotFoundHttpException();
         }
 
         $board->update($fields);
@@ -83,7 +84,7 @@ class BoardController extends Controller
     public function deleteBoard(Board $board)
     {
         if ($board->owner_id !== request()->user()->id) {
-            return $this->error("NOT FOUND", 404);
+            throw new NotFoundHttpException();
         }
 
         $board->delete();
