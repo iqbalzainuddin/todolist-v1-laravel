@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ColumnController;
+use App\Http\Controllers\ItemController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/boards/{board}/columns', [ColumnController::class, 'createColumn']);
     Route::put('/boards/{board}/columns/{column}', [ColumnController::class, 'updateColumn']);
     Route::delete('/boards/{board}/columns/{column}', [ColumnController::class, 'deleteColumn']);
+    
+    // Item routes
+    Route::get('/boards/{board}/columns/{column}/items', [ItemController::class, 'findAllItems']);
+    Route::get('/boards/{board}/columns/{column}/items/{item}', [ItemController::class, 'findItem']);
+    Route::post('/boards/{board}/columns/{column}/items', [ItemController::class, 'createItem']);
+    Route::put('/boards/{board}/columns/{column}/items/{item}', [ItemController::class, 'updateItem']);
+    Route::delete('/boards/{board}/columns/{column}/items/{item}', [ItemController::class, 'deleteItem']);
 });
 
